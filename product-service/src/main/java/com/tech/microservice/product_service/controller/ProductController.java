@@ -12,8 +12,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/product")
 @RequiredArgsConstructor
-public class ProductController {
 
+public class ProductController {
+    
     private final ProductService productService;
 
     @PostMapping
@@ -21,11 +22,15 @@ public class ProductController {
     public ProductResponse createProduct(@RequestBody ProductRequest productRequest){
         return productService.createProduct(productRequest);
     }
-    
+
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<ProductResponse> getAllProducts() {
+    public List<ProductResponse> getAllProducts(){
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         return productService.getAllProducts();
     }
-
 }
